@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'
+    }
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                git 'https://github.com/Supriyaponnaganti/java-web-app.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'cp target/java-web-app-1.0.war /opt/tomcat9/webapps/'
+            }
+        }
+    }
+}
